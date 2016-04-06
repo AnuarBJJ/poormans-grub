@@ -1,0 +1,146 @@
+
+body, html, main {
+    /* important */
+    height: 100%;
+  background: #EFEDEF:;
+  font-family: Brotherhood;
+/*  color: white;*/
+}
+
+p{
+  font-size: 50px;
+}
+
+@font-face {
+    font-family: Brotherhood;
+    src: url(WaterlilyScript.ttf);
+    color: #FF6666;
+}
+
+div {
+    vertical-align: text-top;;
+    font-family: Brotherhood;
+}
+ 
+.cd-fixed-bg {
+    min-height: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+ 
+.cd-fixed-bg.cd-bg-1 {
+  background-image: url("/img/cd-background-1.jpg");
+}
+.cd-fixed-bg.cd-bg-2 {
+  background-image: url("/img/cd-background-2.jpg");
+}
+.cd-fixed-bg.cd-bg-3 {
+  /*background-image: url("../img/cd-background-3.jpg");*/
+}
+.cd-fixed-bg.cd-bg-4 {
+  background-image: url("../img/cd-background-4.jpg");
+}
+ 
+.cd-scrolling-bg {
+    min-height: 100%;
+}
+
+video {
+    position: absolute;
+    display: inline-block;
+    background-size: cover;
+    width: 100%;
+    z-index: -1;
+}
+
+.cd-btn {
+  /*display: inline-block;*/
+  position: absolute;
+  padding: 1.2em 1.4em;
+  font-size: 1.3rem;
+  color: #FF6666;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: #202e4a;
+  border-radius: .25em;
+  /*z-index: 1;*/
+}
+#map {
+  margin: 20px 10px;
+  border-radius: 8px;
+  height: 100%;
+}
+
+#companyName{
+  position: absolute; 
+  top: 30%; 
+  left: 40%;
+  font-size: 400%;
+  z-index: 1;
+}
+
+img{
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.rate_widget {
+    /*border:     1px solid #CCC;*/
+    overflow:   visible;
+    padding:    10px;
+    position:   relative;
+    width:      220px;
+    height:     32px;
+    margin: auto;
+}
+.ratingsStars {
+    background: url('/img/Star-Empty.png') no-repeat;
+    background-size: contain;
+    float:      left;
+    height:     28px;
+    padding:    2px;
+    width:      32px;
+}
+.ratingsVote {
+    background: url('/img/Star-Full.png') no-repeat;
+    background-size: contain;
+}
+.ratings_over {
+    background: url('/img/Star-Full.png') no-repeat;
+}
+
+.star-rating {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  
+  .star {
+    width: 20px;
+    height: 20px;
+    padding: 1px;
+    color: #ddd;
+    font-size: 20px;
+    text-shadow: .05em .05em #aaa;
+    list-style-type: none;
+    display: inline-block;
+    cursor: pointer;
+
+    &.filled {
+      color: #fd0;
+    }
+  }
+
+  &.readonly .star.filled {
+    color: #666;
+  }
+}
+
+.filled{
+    background: url('/img/Star-Full.png') no-repeat;
+    background-size: contain;
+}
