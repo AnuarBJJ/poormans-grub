@@ -3,7 +3,7 @@ myApp.config(function($routeProvider) {
    .when('/cook', {
     templateUrl: '/partials/cook.html'
   })
-   .when('/food', {
+   .when('/eater', {
     templateUrl: '/partials/eater.html'
   })
 

@@ -1,19 +1,137 @@
-	<div class='col-md-6'>
-		<p>Some text here:</p>
-	</div>
-	<div id="map"></div>	
-	<script>
+   <div class="cd-scrolling-bg cd-color-2">
+      <div class="cd-container">
+        <img src="/img/how-it-works.png">
+      </div> 
+    </div> 
 
-	var map;
+    <div class="cd-fixed-bg cd-bg-1">
+      <!-- <h1 class="cd-btn">HOME KITCHEN</h1> -->
+    </div> 
+   
+    <div class="cd-scrolling-bg cd-color-2" ng-controller="LocalCooksController">
+      <div class="cd-container">
+        <div class="row col-md-6">
+          <p>Cooks around you:</p>
+              <div ng-repeat="cook in cooks" class="col-md-6">
+              {{ cook.name }}
+              <div id="lng{{$index}}">{{cook.address.lng}}</div>
+              <div id="lat{{$index}}">{{cook.address.lat}}</div>
+              <img ng-src="{{cook.pic}}">
 
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 37.341, lng: -121.878},
-          zoom: 14
+<!--                 <div  id="r1" class="rate_widget"> -->
+<div ng-controller="RatingController as rating">
+                    <div  star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)"></div>
+</div>
+
+            </div>
+             
+          </div>
+        </div>
+
+        <div class="col-md-6" id="map">
+        </div>
+            <form>
+              <input hidden id="demo" type="text" ng-click="loadCooksAround(loca)" ng-model="loca">
+            </form>
+
+            <div hidden id="test"></div>
+
+      </div> 
+    </div> 
+
+    <div class="cd-fixed-bg cd-bg-2">
+      <h1><!-- title goes here --></h1>
+    </div> 
+   
+    <div class="cd-scrolling-bg cd-color-2">
+      <div class="cd-container">
+        <p style="">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore incidunt suscipit similique, dolor corrupti cumque qui consectetur autem laborum fuga quas ipsam doloribus sequi...
+        </p>
+      </div> 
+    </div>
+
+    <script>
+    $(document).ready(function() {
+
+
+      function initMap() {
+        var cooksAround = []
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 13,
+          disableDefaultUI: true,
+          scrollwheel: false
         });
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('You are here.');
+            map.setCenter(pos);
+
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+        
+
+        google.maps.event.addListener(map, 'bounds_changed', function(){
+          var bounds = map.getBounds();
+          var trigger = document.getElementById("demo");
+          var data = document.getElementById("test");
+          data.innerHTML = bounds;
+          trigger.click();
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (xhttp.readyState == 4 && xhttp.status == 200) {
+            var nearCook = JSON.parse(xhttp.responseText);
+
+            for(var i=0; i<nearCook.length; i ++){
+              console.log("counting cooks");
+              var marker = new google.maps.Marker();
+              marker.setPosition(new google.maps.LatLng(parseFloat(nearCook[i].lat), parseFloat(nearCook[i].lng)));
+              marker.setMap(map);
+            }
+          }
+        };
+
+        xhttp.open("POST", "/list", true);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+          xhttp.send(JSON.stringify(bounds));
+        });
+
       }
 
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
 
-	</script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpWqsXMigw3avF1aZy0gCT9dBQnbXt3mw&callback=initMap"
-    async defer></script>
+        initMap();
+
+
+
+
+      });
+          
+          
+    </script>
+              <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb9sDV6O-M08Z6WewiNs97haTwXNuEwDU"
+    async defer>
+    </script>
