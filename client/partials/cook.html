@@ -1,5 +1,94 @@
-<form>
-	name: <input ng-model='name'>
-	address: <input ng-model='address'>
-	<button ng-click='newCook()'>Create account</button>
+ <div ng-controller='ScrollCtrl'>
+      <h1 class="animated infinite bounce" style="position: absolute; top: 90%; left: 50%" ng-click="gotoElement('middle')">
+        <img src="img/down.png" style="width: 50px" >
+      </h1>
+ </div>
+
+<form id="middle" class="form-horizontal" role="form" action="/registerCook" method="post">
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="email">Name:</label>
+    <div class="col-sm-10">
+      <input name="name" type="text" class="form-control" id="name" placeholder="Enter your name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Picture:</label>
+    <div class="col-sm-10"> 
+      <input name="pic" type="text" class="form-control" id="pwd" placeholder="Picture url">
+    </div>
+  </div>
+  <div>
+	  <label class="file">
+		  <input type="file" id="file">
+		  <span class="file-custom"></span>
+		</label>
+	</div>
+  <div class="form-group"> 
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label><input type="checkbox"> Remember me</label>
+      </div>
+    </div>
+  </div>
+
+  <div>
+  	<input hidden name="lat" id='lat'>
+  	<input hidden name="lng" id='lng'>
+  </div>
+
+  <div class="form-group"> 
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+  </div>
 </form>
+	<script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 13,
+          disableDefaultUI: true,
+          scrollwheel: false
+        });
+        // var infoWindow = new google.maps.InfoWindow({map: map});
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            console.log(pos);
+            document.getElementById('lat').value = pos.lat;
+            document.getElementById('lng').value = pos.lng;
+            // infoWindow.setPosition(pos);
+            // infoWindow.setContent('Location found.');
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+
+
+
+        </script>
+        <div id="map"></div>

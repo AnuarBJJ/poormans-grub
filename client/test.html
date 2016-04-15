@@ -1,0 +1,20 @@
+      <div class="cd-container">
+        <div class="row col-md-6">
+          <p>Cooks around you:</p>
+            <div ng-repeat="cook in cooks" class="col-md-6">
+	        	<div>
+	        		Food: {{cook.meal.name}} <br>
+	        		Cook: {{ cook.cook.name }} <br>
+	        		Price: ${{cook.meal.price}}
+            	</div>
+	            <img ng-src="{{cook.meal.image}}">
+	            <img ng-src="{{cook.cook.pic}}" class="img-circle">
+
+              <div ng-controller="RatingController as rating">
+                    <div  star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
+                    </div>
+              </div>
+            </div>  
+          </div>
+        </div>
+        

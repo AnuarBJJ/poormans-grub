@@ -1,4 +1,6 @@
 var cooks = require('./../controllers/cooks.js')
+var meal = require('./../controllers/meals.js')
+var timetable = require('./../controllers/timetables.js')
 
 module.exports = function(app){
 
@@ -22,11 +24,29 @@ module.exports = function(app){
 		cooks.registerCook(req, res);
 	}),
 
-	app.post('/demo', function(req, res){
-		cooks.cooksAround(req, res);
-	}),
+	// app.post('/cooksAround', function(req, res){
+	// 	cooks.cooksAround(req, res);
+	// }),
 
 	app.post('/list', function(req, res){
 		cooks.cooksAround(req, res);
+	}),
+
+	app.post('/newMeal', function(req, res){
+		meal.create(req, res);
+	}),
+
+	app.post('/download', function(req, res){
+		console.log(req)
+	}),
+
+	app.get('/menu/:cook', function(req, res){
+		meal.cookMenu(req, res);
+	}),
+
+	app.post('/timetable', function(req, res){
+		console.log(req.body)
+		timetable.create(req, res);
 	})
+
 }

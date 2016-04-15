@@ -35,7 +35,7 @@ myApp.factory('cooksFactory', function($http){
 
 		var boundsJson = {south: south, north: north, east: east, west: west};
 
-		$http.post('/demo', boundsJson).success(function successCallback(response){
+		$http.post('/cooksAround', boundsJson).success(function successCallback(response){
 			cooks = response;
 			callback(cooks);			
 		});

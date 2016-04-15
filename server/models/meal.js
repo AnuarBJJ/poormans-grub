@@ -2,11 +2,13 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var foodSchema = new mongoose.Schema({
+var mealSchema = new mongoose.Schema({
  name: String,
- pic: String,
+ image: String,
+ description: String,
+ price: Number,
  cook: {type: Schema.Types.ObjectId, ref: 'Cooks'},
  orders: [{type: Schema.Types.ObjectId, ref: 'Order'}],
 });
 
-var Food = mongoose.model('food', foodSchema);
+var Meal = mongoose.model('meal', mealSchema);

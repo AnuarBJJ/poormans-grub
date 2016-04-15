@@ -1,0 +1,67 @@
+<div class="container" ng-controller='menuController'>
+
+<!-- <div ng-controller="MyCtrl">
+  <form name="myForm">
+    <fieldset>
+      <legend>Upload on form submit</legend>
+      Username:
+      <input type="text" name="userName" ng-model="username" size="31" required>
+      <i ng-show="myForm.userName.$error.required">*required</i>
+      <br>Photo:
+      <input type="file" ngf-select ng-model="picFile" name="file"    
+             accept="image/*" ngf-max-size="2MB" required
+             ngf-model-invalid="errorFile">
+      <i ng-show="myForm.file.$error.required">*required</i><br>
+      <i ng-show="myForm.file.$error.maxSize">File too large 
+          {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+      <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>
+      <br>
+      <button ng-disabled="!myForm.$valid" 
+              ng-click="uploadPic(picFile)">Submit</button>
+      <span class="progress" ng-show="picFile.progress >= 0">
+        <div style="width:{{picFile.progress}}%" 
+            ng-bind="picFile.progress + '%'"></div>
+      </span>
+      <span ng-show="picFile.result">Upload Successful</span>
+      <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+    </fieldset>
+    <br>
+  </form>
+</div> -->
+
+  <!-- form for entering new dish -->
+  <form>
+  <div class="col-sm-4">
+    <div class="thumbnail">
+
+      <div class="image-upload">
+          <label for="file-input">
+              <img src="img/imageholder.jpeg"/>
+          </label>
+
+          <input id="file-input" type="file"/ ng-model='image'>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5" >
+        <h3><span class="label label-info">Meal name</span></h3>
+        <h3><span class="label label-info">Descirption</span></h3>
+        <h3><span class="label label-info">Price</span></h3>
+      </div>
+      <div class="col-md-7">
+        <br>
+        <input type="text" class="form-control" ng-model="meal">
+        <input type="text" class="form-control" ng-model="description">
+        <input type="text" class="form-control" ng-model="price">
+        <input type='submit' value='submit' ng-click="addMeal()">
+      </div>
+    </div>
+  </div>
+</form>
+
+  <!-- all dishes by a particular cook -->
+  <div ng-repeat="meal in menu">
+    <p>{{ meal.name }}</p>
+  </div>
+</div>
+<a ng-href='#/timetable'>What time eaters can pick up food?</a>

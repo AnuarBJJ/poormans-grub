@@ -2,6 +2,10 @@ var mongoose = require('mongoose');
 
 var Cook = mongoose.model('cook');
 
+var Timetable = mongoose.model('timetable');
+
+var Meal = mongoose.model('meal');
+
 module.exports = (function(){
 	return {
 		registerCook: function(req, res){
@@ -16,17 +20,13 @@ module.exports = (function(){
 			})
 		},
 		getAll: function(req, res){
-
-			// var yo = [{name: "Maria", pic: "/img/chickenCurry.jpeg"}, {name: "Alba", pic: "/img/LightRicotta.jpg"}, {name: "Jay", pic: "/img/burrito.jpeg"}, {name: "Makhabbat", pic: "/img/breakfast.jpg"}];
-			// res.json(yo);
-
-		Cook.find({}, function(err, result){
-		   if(err) {
-	         console.log(err);
-	       } else {
-	         res.json(result);
-	       }
-		});
+			Cook.find({}, function(err, result){
+			   if(err) {
+		         console.log(err);
+		       } else {
+		         res.json(result);
+		       }
+			});
 		},
 		cooksAround: function(req, res){
 			Cook.find({lat: {$gt: parseFloat(req.body.south), $lt: parseFloat(req.body.north)},
@@ -34,7 +34,25 @@ module.exports = (function(){
 			   if(err) {
 		         console.log(err);
 		       } else {
-		         res.json(result);
+		       		for(var i=0; i<result.length; i++){
+		       			var cookTomorrow = result[i];
+		       			Timetable.find({cook: result[i]._id}, function(err, shifts){
+		       				for(var j=0; j<shifts.length; j++){
+		       					var shift = shifts[j];
+		       					for(offer in shifts[j].menu){
+		       						Meal.find({_id: offer}, function(err, meals){
+		       							var menuOptions = [];
+		       							for(var s=0; s<meals.length; s++){
+		       								var mealForTomorrow = {cook: cookTomorrow, shift: shift, meal: meals[s]};
+		       								menuOptions.push(mealForTomorrow);
+		       								console.log(mealForTomorrow)
+		       							}
+		       							res.json(menuOptions);
+		       						})
+		       					}
+		       				}
+		       			})
+		       		}
 		       }
 		   })
 		},
