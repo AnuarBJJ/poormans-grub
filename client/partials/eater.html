@@ -1,4 +1,5 @@
 <div ng-controller='LocalCooksController'>
+  <button ng-click='test()' class="z-index: 100;">toggle that bitch</button>
   <div meals-around-map>
   </div> 
 </div>
@@ -17,18 +18,12 @@
 
         <div class="col-md-6" id="map">
         </div>
-        <!-- form cannot be seen on the site and is used to transfer boundaries from maps API to ng controller which grabs cooks around  -->
-        <form>
-          <input hidden id="demo" type="text" ng-click="loadCooksAround(loca)" ng-model="loca">
-        </form>
-
-        <div hidden id="test"></div>
 
     </div> 
 
     <div class="cd-fixed-bg cd-bg-2">
       <h1><!-- title goes here --></h1>
-    </div> 
+    </div>
    
     <div class="cd-scrolling-bg cd-color-2">
       <div class="cd-container">

@@ -1,15 +1,25 @@
-myApp.controller('menuController', function($scope, menuFactory, userPersistenceService){
+myApp.controller('menuController', function($scope, menuFactory, $cookies){
 	$scope.menu = [];
 	$scope.newMeal = {};
 	$scope.image = {};
 	$scope.meal;
 	$scope.description;
-	$scope.user = userPersistenceService.getCookieData();
+	$scope.user = $cookies.get('user');
+	$scope.notFound = true;
 
-	userPersistenceService.setCookieData("Sheila");
+	console.log("current user is " + $scope.user)
+
+	angular.element('#exCollapsingNavbar').addClass('collapse');
 
 	menuFactory.getMenu($scope.user, function(result){
-		$scope.menu = result;
+		console.log(result)
+		if(result!="no cooks found"){
+			$scope.menu = result;
+			$scope.notFound = false;
+		}
+		else{
+			console.log("cook not found")
+		}
 	})
 
 	$scope.addMeal = function(){

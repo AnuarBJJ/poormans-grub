@@ -34,15 +34,12 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 
 		        google.maps.event.addListener(map, 'bounds_changed', function(){
 		          var bounds = map.getBounds();
-		          var trigger = document.getElementById("demo");
-		          var data = document.getElementById("test");
-		          data.innerHTML = bounds;
-		          trigger.click();
 
 		        var xhttp = new XMLHttpRequest();
 		        xhttp.onreadystatechange = function() {
 		          if (xhttp.readyState == 4 && xhttp.status == 200) {
 		            var nearCook = JSON.parse(xhttp.responseText);
+		            console.log(nearCook)
 
 		            for(var i=0; i<nearCook.length; i ++){
 		              var marker = new google.maps.Marker();
@@ -50,7 +47,6 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 		              marker.setMap(map);
 		            }
 		            scope.cooks = nearCook;
-		            console.log(scope.cooks[0]);
 		            scope.$apply()
 		          }
 		        };
@@ -86,7 +82,7 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 	}
 	
 	return {
-		templateUrl: 'test.html',
+		templateUrl: '/partials/mealAround.html',
 		scope: false,
 		link: link
 		}

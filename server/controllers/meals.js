@@ -44,13 +44,17 @@ module.exports = (function(){
 				if(err){
 					console.log(err)
 				} else{
-					Meal.find({cook: cook[0]._id}, function(err, cookMenu){
-						if(err){
-							console.log(err)
-						} else{
-							res.json(cookMenu);
-						}
-					})
+					if(cook[0] != undefined){
+						Meal.find({cook: cook[0]._id}, function(err, cookMenu){
+							if(err){
+								console.log(err)
+							} else{
+								res.json(cookMenu);
+							}
+						})
+					} else{
+						res.json("no cooks found");
+					}
 				}
 			})
 		}
