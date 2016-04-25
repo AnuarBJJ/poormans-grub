@@ -1,12 +1,12 @@
-myApp.controller('DateController', function($scope, dateFactory, userPersistenceService, dateFilter) {
+myApp.controller('DateController', function($scope, dateFactory, $cookies, dateFilter) {
       $scope.tomorrowMenu = {};
-      $scope.user = userPersistenceService.getCookieData();
+      $scope.user = $cookies.get('user');
       var format = 'h:mm a';
-      var now = dateFilter(new Date(), format);
+      $scope.now = new Date();
 
       $scope.value = {
-      	beginning: now,
-      	end: now
+      	beginning: $scope.now,
+      	end: $scope.now
       };
 
       $scope.addToTomorrow = function(item){

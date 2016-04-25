@@ -34,10 +34,12 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 
 		        google.maps.event.addListener(map, 'bounds_changed', function(){
 		          var bounds = map.getBounds();
+		          console.log("bounce");
 
-		        var xhttp = new XMLHttpRequest();
+		       	var xhttp = new XMLHttpRequest();
 		        xhttp.onreadystatechange = function() {
 		          if (xhttp.readyState == 4 && xhttp.status == 200) {
+		          	console.log('in ajax')
 		            var nearCook = JSON.parse(xhttp.responseText);
 		            console.log(nearCook)
 
@@ -51,9 +53,12 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 		          }
 		        };
 
-		        xhttp.open("POST", "/list", true);
-		        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-		          xhttp.send(JSON.stringify(bounds));
+		        // var data = {bounds: JSON.stringify(bounds), beg: document.getElementById('beg').value, end: document.getElementById('end').value}
+		        // xhttp.open("POST", "/list", true);
+		        // xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		        // xhttp.send(data);
+
+
 		        });
 
 		      }

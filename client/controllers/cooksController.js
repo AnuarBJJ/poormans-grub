@@ -1,7 +1,15 @@
-myApp.controller('LocalCooksController', function($document, $scope, cooksFactory, $animate){
+myApp.controller('LocalCooksController', function($document, $scope, cooksFactory, $cookies, $window, $location, $route){
 	$scope.cooks = [];
 	$scope.loca = "something";
-    angular.element('#exCollapsingNavbar').addClass('collapse');
+	$scope.newCook = {};
+    // angular.element('#exCollapsingNavbar').addClass('collapse');
+    $scope.user = cooksFactory.getUser();
+    $scope.loggedOut = true;
+
+    if($scope.user){
+    	$scope.loggedIn = true;
+    	$scope.loggedOut = false;
+    }
 
     $scope.addNew = function(newCook){
 		console.log(newCook);
@@ -12,8 +20,14 @@ myApp.controller('LocalCooksController', function($document, $scope, cooksFactor
 		cooksFactory.delete(toDelete);
 	}
 
-	// $scope.test = function(){
-	// 	console.log("trying to remove");
-	// 	angular.element('#exCollapsingNavbar').addClass('collapse');
-	// }
+	$scope.createCook = function(){
+		$scope.loggedOut = false;
+		console.log($scope.newCook)
+		angular.element('#closeModal').click();
+		$cookies.put('user', $scope.newCook.name)
+		$location.path('/cook')
+
+		// $window.location.href = '#/partials/cookMenu.html';
+		alert('successfully signed up')
+	}
 })

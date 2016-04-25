@@ -1,12 +1,18 @@
 <form name="myForm" ng-controller="DateController as dateCtrl">
   <div ng-controller='menuController' >
     <div ng-repeat="meal in menu">
-      <p ng-click="addToTomorrow(meal._id)">{{ meal.name }}</p>
+      <p ng-click="addToTomorrow(meal._id)">{{ meal.name }}
+        <input type="checkbox" ng-model="meal.include">
+      </p>
+
       <label>How many</label>
       <input id='{{ meal._id }}'>
+      
     </div>
   </div>
 
+  <input type="date" id="exampleInput" name="input" ng-model="date"
+       placeholder="yyyy-MM-dd" min="2013-01-01" max="2018-12-31" required />
   <label for="exampleInput">Start</label>
   <input type="time" id="exampleInput1" ng-model="value.beginning"
       placeholder="THH:mm:ss" />

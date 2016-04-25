@@ -1,5 +1,22 @@
 <div ng-controller='LocalCooksController'>
-  <button ng-click='test()' class="z-index: 100;">toggle that bitch</button>
+  <!-- Controlled by mapDirective -->
+
+  <!-- BUILD DIVS TO TAKE DATA OF BEG AND END
+        DEFAULT MAKE IT THE NEXT MEAL, I.E. BEFORE 7 AM BREAKFAST
+        BEFORE 12 PM LUNCH
+        BEFORE 5 PM DINNER
+        THEN NEXT DAY
+   -->
+
+
+  <!-- <div class='time' id='beg'></div> -->
+    <form>
+      <input data-date-time-input="YYYY-MMM-DD" />
+    </form>
+
+
+
+
   <div meals-around-map>
   </div> 
 </div>

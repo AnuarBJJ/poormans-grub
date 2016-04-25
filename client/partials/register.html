@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <form action="https://hkitchen-test.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
+<!--         <form action="https://hkitchen-test.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
           <input type="hidden" name="key" value="uploads/${filename}">
           <input type="hidden" name="acl" value="public-read-write"> 
           <input type="hidden" name="success_action_redirect" value="localhost:8888">
@@ -26,9 +26,9 @@
           <input name="file" type="file"> 
           <br> 
           <input type="submit" value="Upload File to S3"> 
-        </form> 
-
-        <form role="form">
+        </form>  -->
+<div ng-controller='LocalCooksController as cookCtr'>
+<!--         <form name="myForm" role="form" enctype="multipart/form-data">
           <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" class="form-control" id="name">
@@ -40,21 +40,51 @@
           <div class="checkbox">
             <label><input type="checkbox"> Remember me</label>
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+          <div>
+            <input type="hidden" name="key" value="uploads/${filename}">
+            <input type="hidden" name="acl" value="public-read-write"> 
+            <input type="hidden" name="success_action_redirect" value="localhost:8888">
+            <input type="hidden" name="Content-Type" value="image/jpeg">
 
+            Choose your profile picture: 
+            <input name="file" type="file"> 
+          </div>
+
+          Dirty? {{ctrl.myForm.$dirty}}
+
+          <button type="submit" class="btn btn-default" ng-click='createCook()'>Submit</button>
+        </form> -->
+
+            <!-- purely Angular form-->
+  
+    <form name="userFormOne" novalidate>
+    
+      <div class="form-group">
+      
+        <label>Your name</label>
+        <input type="text" class="form-control" name="name" ng-model="newCook.name" required>
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" ng-model="newCook.password" required>
+        <button type="button" class="btn btn-default" ng-click='createCook()'>Submit</button>
+      </div>
+      
+    </form>
+</div>
         <!-- trying to upload an image to S3 -->
 
 
 
 
         <div class="modal-footer">
-          <a ng-href='#/' type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+          <a ng-href='#/' type="button" class="btn btn-default" data-dismiss="modal" id='closeModal'>Close</a>
         </div>
       </div>
       
     </div>
   </div>
+
+
+
 
   <button hidden id='modalLaunch' type="button" data-toggle="modal" data-target="#myModal">Open Modal</button>
   <script>
