@@ -5,7 +5,6 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-<!--           <button type="button" class="close col-md-12" data-dismiss="modal">&times;</button> -->
             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 
             </fb:login-button>
@@ -16,64 +15,40 @@
             </div>
         </div>
 
-<!--         <form action="https://hkitchen-test.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="key" value="uploads/${filename}">
-          <input type="hidden" name="acl" value="public-read-write"> 
-          <input type="hidden" name="success_action_redirect" value="localhost:8888">
-          <input type="hidden" name="Content-Type" value="image/jpeg">
 
-          Choose your profile picture: 
-          <input name="file" type="file"> 
-          <br> 
-          <input type="submit" value="Upload File to S3"> 
-        </form>  -->
-<div ng-controller='LocalCooksController as cookCtr'>
-<!--         <form name="myForm" role="form" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name">
-          </div>
-          <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd">
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox"> Remember me</label>
-          </div>
-          <div>
-            <input type="hidden" name="key" value="uploads/${filename}">
-            <input type="hidden" name="acl" value="public-read-write"> 
-            <input type="hidden" name="success_action_redirect" value="localhost:8888">
-            <input type="hidden" name="Content-Type" value="image/jpeg">
+<div ng-controller='registrationController'>
 
-            Choose your profile picture: 
-            <input name="file" type="file"> 
-          </div>
-
-          Dirty? {{ctrl.myForm.$dirty}}
-
-          <button type="submit" class="btn btn-default" ng-click='createCook()'>Submit</button>
-        </form> -->
-
-            <!-- purely Angular form-->
+      <label>Your picture</label>
+      <input name="file" type="file" file />
+      <img id='profile' src="" style='height: 100px; width: 100px'>
+    </br>
+  </br>
+    <!-- purely Angular form-->
   
     <form name="userFormOne" novalidate>
     
-      <div class="form-group">
+      <div class="form-group" >
       
         <label>Your name</label>
         <input type="text" class="form-control" name="name" ng-model="newCook.name" required>
-        <label>Password</label>
-        <input type="password" class="form-control" name="password" ng-model="newCook.password" required>
-        <button type="button" class="btn btn-default" ng-click='createCook()'>Submit</button>
+        <label>Address</label>
+        <input type="text" ng-model="newCook.address" ng-if='ownAddress' class="form-control" name="address"  id='address' required>
+        <input type="text" ng-model="newCook.address" ng-if='!ownAddress' class="form-control" name="address"  id='address' placeholder='Enter your address' required>
+        <label>Uncheck if it's not your address</label> 
+
+        <input type="checkbox" ng-model='ownAddress' ng-init="ownAddress=true">
+        </br>
+        <button type="button" ng-if='!ownAddress' class="btn btn-default" ng-click='geolocation()'>Check it on map</button>
+        <button type="button" class="btn btn-default" ng-click='registerCook()'>Register</button>
       </div>
       
     </form>
+
 </div>
         <!-- trying to upload an image to S3 -->
 
 
-
+        <div id='map'></div>
 
         <div class="modal-footer">
           <a ng-href='#/' type="button" class="btn btn-default" data-dismiss="modal" id='closeModal'>Close</a>

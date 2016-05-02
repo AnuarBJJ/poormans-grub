@@ -9,7 +9,7 @@ myApp.config(function($routeProvider) {
 	.when('/timetable', {
     templateUrl: '/partials/timetable.html'
   })
-  .when('/fblogin', {
+  .when('/login', {
     templateUrl: '/partials/FBlogin.html'
   })
   .when('/signup', {

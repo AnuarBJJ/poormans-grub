@@ -1,10 +1,15 @@
 myApp.controller('LocalCooksController', function($document, $scope, cooksFactory, $cookies, $window, $location, $route){
 	$scope.cooks = [];
-	$scope.loca = "something";
 	$scope.newCook = {};
     // angular.element('#exCollapsingNavbar').addClass('collapse');
     $scope.user = cooksFactory.getUser();
     $scope.loggedOut = true;
+    if($scope.currentTime == undefined){
+    	$scope.date = new Date();
+    	$scope.beg = $scope.date;
+    	$scope.end = new Date();
+    	$scope.end.setTime(Date.parse($scope.beg)+15*60*1000);
+    }
 
     if($scope.user){
     	$scope.loggedIn = true;

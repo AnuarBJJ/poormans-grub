@@ -1,4 +1,19 @@
-myApp.controller('loginController', function(){})
+myApp.controller('loginController', function($window, $scope, $http, $location, $cookies){
+	$scope.checkUser = function(){
+		console.log($scope.userName);
+		$http.post('/login', {suspect: $scope.userName}).success(function(response){
+			if(response){
+				$cookies.put('user', response.name)
+				$location.path('/')
+				$window.location.reload();
+			} else {
+				alert('You are not registered yet')
+			}
+			
+		})
+	}
+
+})
 
 	.directive('fbLogin', ['$timeout', '$cookies', function($timeout, $cookies){
 
@@ -6,7 +21,7 @@ myApp.controller('loginController', function(){})
 			document.getElementById('modalLaunch').click()
 		}
 
-	// function link(scope){
+	function underQuestion(scope){
 		  function statusChangeCallback(response) {
 			    console.log('statusChangeCallback');
 			    console.log(response);
@@ -88,7 +103,7 @@ myApp.controller('loginController', function(){})
 			    });
 			    $window.history.back();
 			  }
-			// }
+			}
 	
 	return {
 		templateUrl: '/partials/login.html',

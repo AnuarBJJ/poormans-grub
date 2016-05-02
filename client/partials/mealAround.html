@@ -1,5 +1,25 @@
       <div class="cd-container">
         <div class="row col-md-6">
+              <form class="form-inline" role="form">
+                <h3>Time I wish to pick up</h3>
+                <div class="form-group">
+                  <label for="beg">Starting:</label>
+                  <input type="time" class="form-control" id="beg" ng-model='beg' placeholder="THH:mm:ss">
+                </div>
+                <div class="form-group">
+                  <label for="end">Ending:</label>
+                  <input type="time" class="form-control" id="end" ng-model='end' placeholder="THH:mm:ss">
+                </div>
+              </form>
+
+              <form class="form-horizontal" role="form">
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="date">Date:</label>
+                  <div class="col-sm-10"> 
+                    <input type="date" class="form-control" id="date" ng-model="date">
+                  </div>
+                </div>
+              </form>
           <p>Cooks around you:</p>
             <div ng-repeat="cook in cooks" class="col-md-6">
               <div class="card">

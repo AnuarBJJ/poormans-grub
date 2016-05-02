@@ -4,6 +4,10 @@ var timetable = require('./../controllers/timetables.js')
 
 module.exports = function(app){
 
+	app.post('/login', function(req, res){
+		cooks.login(req, res)
+	}),
+
 	app.get('/cooks', function(req, res){
 		cooks.getAll(req, res);
 	}),
