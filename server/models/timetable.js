@@ -6,7 +6,7 @@ var timetableSchema = new mongoose.Schema({
 	menu: Object,
 	beg: Date,
 	end: Date,
-	cook: {type: Schema.Types.ObjectId, ref: 'Cooks'}
+	cook: {type: Schema.Types.ObjectId, ref: 'cook'}
 });
 
 var Timetable = mongoose.model('timetable', timetableSchema);

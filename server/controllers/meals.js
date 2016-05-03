@@ -17,14 +17,20 @@ module.exports = (function(){
 			});
 		},
 		create: function(req, res){
-			Cook.find({name: req.body.cook}, function(err, cook){
-				var meal = new Meal({cook: cook[0]._id, name: req.body.name, description: req.body.description, image: "some image", price: req.body.price});
+			Cook.findOne({name: req.body.cook}, function(err, cook){
+				var meal = new Meal({name: req.body.name, description: req.body.description, image: req.body.image, price: req.body.price});
+				
+				meal._cook = cook._id;
+
+				cook.meals.push(meal);
 				meal.save(function(err){
-					if(err){
-						console.log(err);
-					} else{
-						res.json(meal);
-					}
+					cook.save(function(err){
+						if(err){
+							console.log(err)
+						} else {
+							res.json('succesfully added a meal')
+						}
+					})
 				})
 			})
 		},
@@ -40,23 +46,12 @@ module.exports = (function(){
 			});
 		},
 		cookMenu: function(req, res){
-			Cook.find({name: req.params.cook}, function(err, cook){
-				if(err){
-					console.log(err)
-				} else{
-					if(cook[0] != undefined){
-						Meal.find({cook: cook[0]._id}, function(err, cookMenu){
-							if(err){
-								console.log(err)
-							} else{
-								res.json(cookMenu);
-							}
-						})
-					} else{
-						res.json("no cooks found");
-					}
-				}
-			})
+
+			Cook.findOne({name: req.params.cook})
+				.populate('meals')
+				.exec(function(err, menu){
+					res.json(menu.meals)
+				})
 		}
 	}
 	

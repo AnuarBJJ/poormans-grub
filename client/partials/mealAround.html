@@ -25,11 +25,12 @@
               <div class="card">
                 <div class="card-block">
                   <h4 class="card-title">{{cook.meal.name}} </h4>
-                  <h6 class="card-subtitle text-muted">Cook: {{ cook.cook.name }}</h6>
+                  <h6 class="card-subtitle text-muted">Cook: {{ cook.name}}</h6>
+                  <h6 class="card-subtitle text-muted">Servings available: {{ cook.shift.menu[cook.meal._id]}}</h6>
                 </div>
-   <!--              <img src="{{cook.meal.image}}" alt="Card image"> -->
+                <img src="{{cook.meal.image}}" alt="Card image">
                 <div class="card-block">
-                  <p class="card-text">{{cook.meal.description}}</p>
+                  <p class="card-text">{{cook.meals[0].description}}</p>
                   <a href="#" class="card-link">Card link</a>
                   <a href="#" class="card-link">Another link</a>
                 </div>

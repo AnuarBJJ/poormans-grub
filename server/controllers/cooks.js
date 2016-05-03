@@ -2,9 +2,11 @@ var mongoose = require('mongoose');
 
 var Cook = mongoose.model('cook');
 
+var Meal = mongoose.model('meal');
+
 var Timetable = mongoose.model('timetable');
 
-var Meal = mongoose.model('meal');
+
 
 module.exports = (function(){
 	return {
@@ -29,12 +31,15 @@ module.exports = (function(){
 			});
 		},
 		cooksAround: function(req, res){
-			var date = new Date();
-			var menu = [];
+			// var date = new Date();
+			// var menu = [];
 			Cook.find({lat: {$gt: parseFloat(req.body.bounds.south), $lt: parseFloat(req.body.bounds.north)},
-						lng: {$gt: parseFloat(req.body.bounds.west), $lt: parseFloat(req.body.bounds.east)}}).populate('')
-
-			// .populate('')
+						lng: {$gt: parseFloat(req.body.bounds.west), $lt: parseFloat(req.body.bounds.east)}})
+			.populate('shifts')
+			.populate('meals')
+			.exec(function(err, array){
+					res.json(array)
+			})
 		   
 		},
 		login: function(req, res){

@@ -8,8 +8,9 @@ var cookSchema = new mongoose.Schema({
 	address: String,
 	lat: Number,
 	lng: Number,
-	shifts: [{type: Schema.Types.ObjectId, ref: 'Timetable'}],
-	meals: [{type: Schema.Types.ObjectId, ref: 'Meal'}]
+	meals: [{type: Schema.Types.ObjectId, ref: 'meal'}],
+	shifts: [{type: Schema.Types.ObjectId, ref: 'timetable'}]
+	
 });
 
 var Cook = mongoose.model('cook', cookSchema);

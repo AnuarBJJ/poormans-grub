@@ -4,6 +4,8 @@ var Timetable = mongoose.model('timetable');
 
 var Cook = mongoose.model('cook');
 
+var Meal = mongoose.model('meal');
+
 module.exports = (function(){
 	return {
 		getAll: function(req, res){
@@ -17,14 +19,27 @@ module.exports = (function(){
 			});
 		},
 		create: function(req, res){
-			Cook.find({name: req.body.cook}, function(err, cook){
-				var timetable = new Timetable({cook: cook[0]._id, menu: req.body.menu, beg: req.body.beg, end: req.body.end});
+			Cook.findOne({name: req.body.cook}, function(err, cook){
+				var timetable = new Timetable({cook: cook._id, beg: req.body.beg, end: req.body.end});
+				
+				cook.shifts.push(timetable);
+
+				// var menu = Object.keys(req.body.menu)
+
+				// menu.forEach(function(item){
+				// 	Meal.findOne({_id: item}, function(err, meal){
+				// 		timetable.menu.push(meal)
+				// 	})
+				// })
+
 				timetable.save(function(err){
-					if(err){
-						console.log(err);
-					} else{
-						res.json(timetable);
-					}
+					cook.save(function(err){
+						if(err){
+							console.log(err)
+						} else {
+							res.json("successfully saved a shift")
+						}
+					})
 				})
 			})
 		},

@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+// var Schema = mongoose.Schema;
 
-var eaterSchema = new mongoose.Schema({
- name: String,
- orders: [{type: Schema.Types.ObjectId, ref: 'Order'}],
-});
+// var eaterSchema = new mongoose.Schema({
+//  name: String,
+//  orders: [{type: Schema.Types.ObjectId, ref: 'Order'}],
+// });
 
-var Eater = mongoose.model('eater', eaterSchema);
+// var Eater = mongoose.model('eater', eaterSchema);

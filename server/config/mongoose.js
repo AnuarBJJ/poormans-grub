@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+var Schema = mongoose.Schema;
+
 var fs = require('fs');
 
 var path = require('path');

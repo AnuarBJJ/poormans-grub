@@ -1,5 +1,24 @@
 myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 
+	var arrangeData = function(data){
+		var offerings = [];
+		console.log(data)
+		data.forEach(function(cook){
+			cook.shifts.forEach(function(shift){
+				var menu = Object.keys(shift.menu)
+				menu.forEach(function(item){
+					cook.meals.forEach(function(meal){
+						if(item == meal._id){
+							console.log(meal.name)
+							offerings.push({meal: meal, shift: shift, cook: cook})
+						}
+					})
+				})
+			})
+		})
+		return offerings;
+	}
+
 	var mapFunction = function(scope){
 		function initMap() {
 		        var cooksAround = []
@@ -38,21 +57,23 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 		       	var xhttp = new XMLHttpRequest();
 		        xhttp.onreadystatechange = function() {
 		          if (xhttp.readyState == 4 && xhttp.status == 200) {
-		          	console.log(xhttp.responseText)
+		          	// console.log(xhttp.responseText)
 		            if(xhttp.responseText == 'no cooks found' || xhttp.responseText == 'shifts not found'){
 		            	console.log('no cooks work')
 		            } else{
 
 			            var nearCook = JSON.parse(xhttp.responseText);
 
-			            console.log(nearCook)
+			            // console.log(nearCook)
 
 			            for(var i=0; i<nearCook.length; i ++){
 			              var marker = new google.maps.Marker();
-			              marker.setPosition(new google.maps.LatLng(parseFloat(nearCook[i].cook.lat), parseFloat(nearCook[i].cook.lng)));
+			              marker.setPosition(new google.maps.LatLng(parseFloat(nearCook[i].lat), parseFloat(nearCook[i].lng)));
 			              marker.setMap(map);
 			            }
-			            scope.cooks = nearCook;
+			            
+			            scope.cooks = arrangeData(nearCook);
+			   			console.log(scope.cooks)
 			            scope.$apply()
 			        }
 		          }

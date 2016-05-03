@@ -23,9 +23,8 @@ myApp.controller('menuController', function($scope, menuFactory, $cookies){
 	})
 
 	$scope.addMeal = function(){
-		var newMeal = {cook: $scope.user, name: $scope.meal, description: $scope.description, price: $scope.price, image: $scope.image};
+		var newMeal = {cook: $scope.user, name: $scope.meal, description: $scope.description, price: $scope.price, image: 'https://s3-us-west-2.amazonaws.com/meal-upload/' + $scope.file.name};
 		menuFactory.createMeal(newMeal, function(response){
-			// $scope.menu.push(response);
 			console.log(response);
 		});
 	}
