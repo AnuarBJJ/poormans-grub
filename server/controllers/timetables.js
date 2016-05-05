@@ -20,7 +20,7 @@ module.exports = (function(){
 		},
 		create: function(req, res){
 			Cook.findOne({name: req.body.cook}, function(err, cook){
-				var timetable = new Timetable({cook: cook._id, beg: req.body.beg, end: req.body.end});
+				var timetable = new Timetable({cook: cook._id, beg: req.body.beg, end: req.body.end, menu: req.body.menu});
 				
 				cook.shifts.push(timetable);
 

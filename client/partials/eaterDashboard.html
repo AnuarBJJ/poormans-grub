@@ -3,18 +3,12 @@
 <form name="myForm" >
   <input type="date" id="exampleInput" name="input" ng-model="date"
        placeholder="yyyy-MM-dd" min="2013-01-01" max="2018-12-31" required />
-  <label for="exampleInput">Start</label>
+  <label for="exampleInput">Shall we srart</label>
   <input type="time" id="exampleInput1" ng-model="value.beginning"
       placeholder="THH:mm:ss" />
   <label for="exampleInput2">End</label>
   <input type="time" id="exampleInput" ng-model="value.end" 
       placeholder="THH:mm"  />
-<!--   <div role="alert">
-    <span class="error" ng-show="myForm.input.$error.required">
-        Required!</span>
-    <span class="error" ng-show="myForm.input.$error.datetimelocal">
-        Not a valid date!</span>
-  </div> -->
   <input ng-click="buildTomorrowMenu()" type="submit" value="Submit">
 </form>
 

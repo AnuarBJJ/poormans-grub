@@ -15,4 +15,7 @@ myApp.config(function($routeProvider) {
   .when('/signup', {
     templateUrl: '/partials/register.html'
   })
+  .when('/eaterDash', {
+    templateUrl: '/partials/eaterDashboard.html'
+  })
 })

@@ -1,14 +1,18 @@
 <div style="margin-top: 100px"></div>
 
+<div class="page-header">
+  <h1>Menu dashboard <small>Build your food list</small></h1>
+</div>
+
 <div class="container" ng-controller='menuController'>
 
   <div ng-if="notFound" ng-include="'/partials/cook.html'"></div>
 
   <!-- form for entering new dish -->
-  <form>
+  
   <div class="col-sm-4">
     <div class="thumbnail">
-
+    <form>
       <div class="image-upload">
         <img id='profile' src="img/imageholder.jpeg" style='width: 100%'>
         <input name="file" type="file" file />
@@ -27,13 +31,31 @@
         <input type="text" class="form-control" ng-model="price">
         <input type='submit' value='submit' ng-click="addMeal()">
       </div>
+      </form>
     </div>
   </div>
-</form>
+
 
   <!-- all dishes by a particular cook -->
   <div ng-repeat="meal in menu">
-    <p>{{ meal.name }}</p>
+    <div class="thumbnail col-sm-4">
+        <div class="card-block">
+          <h4 class="card-title">{{meal.name}} </h4>
+          <!-- <h6 class="card-subtitle text-muted">Cook: {{ cook.name}}</h6> -->
+          <!-- <h6 class="card-subtitle text-muted">Servings available: {{ cook.shift.menu[cook.meal._id]}}</h6> -->
+        </div>
+        <img src="{{meal.image}}" alt="Card image">
+        <div class="card-block" ng-controller="RatingController as rating">
+            <div class='row' star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
+            </div>
+        </div>
+      </br>
+        <div class="card-block">
+          <p class="card-text">{{meal.description}}</p>
+          <!-- <a href="#" class="card-link">Want this</a> -->
+          <!-- <a href="#" class="card-link">Another link</a> -->
+        </div>
+      </div>
   </div>
 </div>
 <a ng-href='#/timetable'>What time eaters can pick up food?</a>

@@ -1,10 +1,12 @@
 myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 
+	//this function rearranges http response to a format convinient for displaying
 	var arrangeData = function(data){
 		var offerings = [];
 		console.log(data)
 		data.forEach(function(cook){
 			cook.shifts.forEach(function(shift){
+				console.log(shift)
 				var menu = Object.keys(shift.menu)
 				menu.forEach(function(item){
 					cook.meals.forEach(function(meal){
@@ -83,8 +85,6 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 		        xhttp.open("POST", "/list", true);
 		        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		        xhttp.send(data);
-
-
 		        });
 
 		      }
@@ -115,8 +115,15 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 	return {
 		templateUrl: '/partials/mealAround.html',
 		scope: false,
-		link: link
+		link: link,
+		controller: function($scope){
+			$scope.cart = [];
+			$scope.toCart = function(meal){
+				$scope.cart.push(meal);
+				console.log($scope.cart);
+			}
 		}
+	}
 			
 }])
 

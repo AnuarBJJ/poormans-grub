@@ -16,7 +16,7 @@ myApp
     return {
       restrict: 'EA',
       template:
-        '<ul class="rate-widget" ng-class="{readonly: readonly}">' +
+        '<ul class="rate-widget list-unstyled" ng-class="{readonly: readonly}">' +
         '  <li ng-repeat="star in stars" class="ratingsStars" ng-class="{filled: star.filled}" ng-click="toggle($index)">' +
         '    <i class="fullStar"></i>' + // or &#9733
         '  </li>' +

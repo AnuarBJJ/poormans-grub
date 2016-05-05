@@ -50,7 +50,12 @@ module.exports = (function(){
 			Cook.findOne({name: req.params.cook})
 				.populate('meals')
 				.exec(function(err, menu){
-					res.json(menu.meals)
+					if(menu){
+						res.json(menu.meals)
+					} else {
+						res.json('no meals found')
+					}
+					
 				})
 		}
 	}

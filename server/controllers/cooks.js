@@ -31,15 +31,29 @@ module.exports = (function(){
 			});
 		},
 		cooksAround: function(req, res){
-			// var date = new Date();
-			// var menu = [];
+			var menu = []
+			var endEater = new Date(req.body.date+' '+req.body.end);
+			var endEaterIso = endEater.toISOString()
+			console.log(endEaterIso)
+			var begEater = new Date(req.body.date+' '+req.body.beg);
+			var begEaterIso = begEater.toISOString()
+			console.log(begEaterIso);
 			Cook.find({lat: {$gt: parseFloat(req.body.bounds.south), $lt: parseFloat(req.body.bounds.north)},
 						lng: {$gt: parseFloat(req.body.bounds.west), $lt: parseFloat(req.body.bounds.east)}})
-			.populate('shifts')
-			.populate('meals')
-			.exec(function(err, array){
-					res.json(array)
-			})
+				.populate({path: 'shifts',
+							match: { 'beg': {$lt: endEaterIso}, 'end': {$gt: begEaterIso}}
+								})
+				.populate('meals')
+				.exec(function(err, array){
+					console.log(array)
+					array.forEach(function(ckoo){
+						if(ckoo.shifts.length>0){
+							menu.push(ckoo)
+						}
+					})
+					console.log(menu)
+					res.json(menu)
+				})
 		   
 		},
 		login: function(req, res){

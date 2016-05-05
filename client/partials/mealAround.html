@@ -20,32 +20,37 @@
                   </div>
                 </div>
               </form>
-          <p>Cooks around you:</p>
-            <div ng-repeat="cook in cooks" class="col-md-6">
-              <div class="card">
-                <div class="card-block">
-                  <h4 class="card-title">{{cook.meal.name}} </h4>
-                  <h6 class="card-subtitle text-muted">Cook: {{ cook.name}}</h6>
-                  <h6 class="card-subtitle text-muted">Servings available: {{ cook.shift.menu[cook.meal._id]}}</h6>
-                </div>
-                <img src="{{cook.meal.image}}" alt="Card image">
-                <div class="card-block">
-                  <p class="card-text">{{cook.meals[0].description}}</p>
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
-                </div>
-                <div ng-controller="RatingController as rating">
-                    <div  star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
-                    </div>
+
+              <div class="panel panel-primary">
+                <div class="panel-heading">Cart</div>
+                <div class="panel-body">
+                  <div ng-repeat="yummi in cart">
+                    <span>{{yummi.meal.name}}</span>
+                  </div>
+                  <a type='button' ng-click='checkOut()' ng-href='#/eaterDash'>Proceed to check-out</a>
                 </div>
               </div>
-<!-- 	        	<div>
-	        		Price: ${{cook.meal.price}}
-          	</div> -->
-	            <!-- <img ng-src="{{cook.cook.pic}}" class="img-circle"> -->
 
+            <div ng-repeat="cook in cooks" class="col-md-6">
+              <div class="thumbnail">
+                <div class="card-block">
+                  <h4>{{cook.meal.name}} </h4>
+                  <h6>Cook: {{ cook.name}}</h6>
+                  <h6>Servings available: {{ cook.shift.menu[cook.meal._id]}}</h6>
+                </div>
+                <img src="{{cook.meal.image}}" alt="Card image">
+                <div class="card-block" ng-controller="RatingController as rating">
+                    <div class='row' star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
+                    </div>
+                </div>
+              </br>
+                <div class="caption">
+                  <p>{{cook.meal.description}}</p>
+                  <p><a ng-click='toCart(cook)' class="btn btn-primary" role="button">Add to cart</a></p>
+                </div>
+              </div>
+            </div> 
 
-            </div>  
           </div>
         </div>
         
