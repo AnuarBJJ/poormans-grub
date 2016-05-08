@@ -21,6 +21,22 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 		return offerings;
 	}
 
+
+	var locate = function(){
+		       	var xhttpGeo = new XMLHttpRequest();
+		        xhttpGeo.onreadystatechange = function() {
+		          if (xhttpGeo.readyState == 4 && xhttpGeo.status == 200) {
+			            var location = JSON.parse(xhttpGeo.responseText);
+
+			            console.log("the location has been found ", location)
+			        }
+		          }
+
+		        xhttpGeo.open("POST", "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAW_t0GYoB3USwL-JDTWYssYScHJ-RcjNA", true);
+		        xhttpGeo.setRequestHeader("Content-Type", "application/json");
+		        xhttpGeo.send();
+	}
+
 	var mapFunction = function(scope){
 		function initMap() {
 		        var cooksAround = []
@@ -33,21 +49,23 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 		        });
 		        var infoWindow = new google.maps.InfoWindow({map: map});
 
+		        locate();
 		        // Try HTML5 geolocation.
 		        if (navigator.geolocation) {
-		          navigator.geolocation.getCurrentPosition(function(position) {
-		            var pos = {
-		              lat: position.coords.latitude,
-		              lng: position.coords.longitude
-		            };
 
-		            infoWindow.setPosition(pos);
-		            infoWindow.setContent('You are here.');
-		            map.setCenter(pos);
+		          // navigator.geolocation.getCurrentPosition(function(position) {
+		          //   var pos = {
+		          //     lat: position.coords.latitude,
+		          //     lng: position.coords.longitude
+		          //   };
 
-		          }, function() {
-		            handleLocationError(true, infoWindow, map.getCenter());
-		          });
+		          //   infoWindow.setPosition(pos);
+		          //   infoWindow.setContent('You are here.');
+		          //   map.setCenter(pos);
+
+		          // }, function() {
+		          //   handleLocationError(true, infoWindow, map.getCenter());
+		          // });
 		        } else {
 		          // Browser doesn't support Geolocation
 		          handleLocationError(false, infoWindow, map.getCenter());
@@ -118,9 +136,14 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 		link: link,
 		controller: function($scope){
 			$scope.cart = [];
+
 			$scope.toCart = function(meal){
 				$scope.cart.push(meal);
 				console.log($scope.cart);
+			}
+
+			$scope.checkOut = function(){
+				
 			}
 		}
 	}
