@@ -49,23 +49,23 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 		        });
 		        var infoWindow = new google.maps.InfoWindow({map: map});
 
-		        locate();
+		        // locate();
 		        // Try HTML5 geolocation.
 		        if (navigator.geolocation) {
 
-		          // navigator.geolocation.getCurrentPosition(function(position) {
-		          //   var pos = {
-		          //     lat: position.coords.latitude,
-		          //     lng: position.coords.longitude
-		          //   };
+		          navigator.geolocation.getCurrentPosition(function(position) {
+		            var pos = {
+		              lat: position.coords.latitude,
+		              lng: position.coords.longitude
+		            };
 
-		          //   infoWindow.setPosition(pos);
-		          //   infoWindow.setContent('You are here.');
-		          //   map.setCenter(pos);
+		            infoWindow.setPosition(pos);
+		            infoWindow.setContent('You are here.');
+		            map.setCenter(pos);
 
-		          // }, function() {
-		          //   handleLocationError(true, infoWindow, map.getCenter());
-		          // });
+		          }, function() {
+		            handleLocationError(true, infoWindow, map.getCenter());
+		          });
 		        } else {
 		          // Browser doesn't support Geolocation
 		          handleLocationError(false, infoWindow, map.getCenter());

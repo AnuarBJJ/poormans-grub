@@ -13,7 +13,6 @@ myApp.controller('registrationController', function($document, $scope, cooksFact
 	        });
 
 
-
 	        var infoWindow = new google.maps.InfoWindow({map: map});
 
 	        // Try HTML5 geolocation.
@@ -22,9 +21,11 @@ myApp.controller('registrationController', function($document, $scope, cooksFact
 	            var pos = {
 	              lat: position.coords.latitude,
 	              lng: position.coords.longitude
-	            };
+		            };
+		        // })
 
-	            // google.maps.event.addListener(map, 'bounds_changed', function(){
+
+	            google.maps.event.addListener(map, 'bounds_changed', function(){
 			       	var xhttp = new XMLHttpRequest();
 			        xhttp.onreadystatechange = function() {
 			          if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -38,7 +39,7 @@ myApp.controller('registrationController', function($document, $scope, cooksFact
 			        console.log(requestUrl)
 			        xhttp.open("GET", requestUrl, true);
 			        xhttp.send();
-			    // })
+			    })
 
 	            infoWindow.setPosition(pos);
 	            infoWindow.setContent('You are here.');
