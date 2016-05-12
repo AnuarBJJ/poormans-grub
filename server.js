@@ -22,6 +22,6 @@ app.use('/scripts', express.static(__dirname + '/node_modules'));
 
 
 
-app.listen('8888', function(){
-	console.log('server is listening at 8888');
+app.listen('8000', function(){
+	console.log('server is listening at 8000');
 })

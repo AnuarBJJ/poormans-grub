@@ -31,16 +31,16 @@
                 </div>
               </div>
 
-            <div ng-repeat="cook in cooks" class="col-md-6">
-              <div class="thumbnail">
+            <div ng-repeat="cook in cooks" class="col-md-4">
+              <div class="thumbnail" style='height: 400px'>
                 <div class="card-block">
                   <h4>{{cook.meal.name}} </h4>
                   <h6>Cook: {{ cook.name}}</h6>
                   <h6>Servings available: {{ cook.shift.menu[cook.meal._id]}}</h6>
                 </div>
-                <img src="{{cook.meal.image}}" alt="Card image">
+                <img src="{{cook.meal.image}}" alt="Card image" style='height: 200px; width: auto'>
                 <div class="card-block" ng-controller="RatingController as rating">
-                    <div class='row' star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
+                    <div class='col-md-12' star-rating ng-model="rating.rating1" max="5">
                     </div>
                 </div>
               </br>

@@ -13,17 +13,19 @@
   <div class="col-sm-4">
     <div class="thumbnail">
     <form>
-      <div class="image-upload">
-        <img id='profile' src="img/imageholder.jpeg" style='width: 100%'>
-        <input name="file" type="file" file />
-      </div>
-    </div>
-    <div class="row">
+            <div class="image-upload">
+              <img id='profile' src="img/imageholder.jpeg" style='width: 100%'>
+              <input name="file" type="file" file />
+            </div>
+    <!-- </div> -->
+
+          <!-- <div class="row"> -->
       <div class="col-md-5" >
         <h3><span class="label label-info">Meal name</span></h3>
         <h3><span class="label label-info">Descirption</span></h3>
         <h3><span class="label label-info">Price</span></h3>
       </div>
+
       <div class="col-md-7">
         <br>
         <input type="text" class="form-control" ng-model="meal">
@@ -31,22 +33,23 @@
         <input type="text" class="form-control" ng-model="price">
         <input type='submit' value='submit' ng-click="addMeal()">
       </div>
-      </form>
+    </form>
     </div>
   </div>
 
 
   <!-- all dishes by a particular cook -->
   <div ng-repeat="meal in menu">
-    <div class="thumbnail col-sm-4">
+    <div class="col-md-3">
+    <div class="thumbnail card">
         <div class="card-block">
           <h4 class="card-title">{{meal.name}} </h4>
           <!-- <h6 class="card-subtitle text-muted">Cook: {{ cook.name}}</h6> -->
           <!-- <h6 class="card-subtitle text-muted">Servings available: {{ cook.shift.menu[cook.meal._id]}}</h6> -->
         </div>
-        <img src="{{meal.image}}" alt="Card image">
+        <img src="{{meal.image}}" alt="Card image" style='height: 200px; width: auto'>
         <div class="card-block" ng-controller="RatingController as rating">
-            <div class='row' star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
+            <div class='col-md-12' star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
             </div>
         </div>
       </br>
@@ -56,6 +59,7 @@
           <!-- <a href="#" class="card-link">Another link</a> -->
         </div>
       </div>
+    </div>
   </div>
 </div>
 <a ng-href='#/timetable'>What time eaters can pick up food?</a>

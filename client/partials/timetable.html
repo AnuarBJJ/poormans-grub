@@ -20,13 +20,14 @@
 
   <div ng-controller='menuController' >
     <div ng-repeat="meal in menu">
-      <div class="thumbnail col-md-4">
+      <div class='col-md-3'>
+      <div class="thumbnail card">
         <div class="card-block">
           <h4 class="card-title">{{meal.name}} </h4>
         </div>
-        <img src="{{meal.image}}" alt="Card image">
+        <img src="{{meal.image}}" alt="Card image" style='height: 200px; width: auto'>
         <div class="card-block" ng-controller="RatingController as rating">
-            <div class='row' star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
+            <div class='col-md-12' star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
             </div>
         </div>
       </br>
@@ -37,6 +38,10 @@
           <a type="button" class="btn btn-primary" ng-click='addToTomorrow(meal._id)' class="card-link">Cook this</a>
         </div>
       </div>
+
     </div>
+    </div>
+
+
   </div>
 </div>

@@ -2,6 +2,17 @@ var cooks = require('./../controllers/cooks.js')
 var meal = require('./../controllers/meals.js')
 var timetable = require('./../controllers/timetables.js')
 
+// var post_options = {AIzaSyBUkjkApLU6r4kDy9J46bbglAm80nADW88
+//   host: 'closure-compiler.appspot.com',
+//   port: '80',
+//   path: '/compile',
+//   method: 'POST',
+//   headers: {
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//       'Content-Length': Buffer.byteLength(post_data)
+//   }
+// };
+
 module.exports = function(app){
 
 	app.post('/login', function(req, res){
