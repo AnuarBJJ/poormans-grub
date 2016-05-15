@@ -1,28 +1,26 @@
 {
-  "name": "appengine-hello-world",
-  "description": "Simple Hello World Node.js sample for Google App Engine",
-  "version": "0.0.1",
+  "name": "poormansgrub",
+  "version": "1.0.0",
+  "description": "Home made food",
+  "repository": "https://github.com/AnuarBJJ/poormansGrub.git",
   "private": true,
-  "license": "Apache Version 2.0",
-  "author": "Google Inc.",
-  "engines": {
-    "node": "~4.2"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "monitor": "nodemon app.js",
+    "deploy": "gcloud preview app deploy app.yaml",
+    "lint": "jshint --exclude-path=.gitignore .",
+    "test": "npm run lint"
   },
-  "author": "Anuar",
-  "license": "ISC",
+  "author": "Anuar Zhuken",
+  "license": "Apache Version 2.0",
   "dependencies": {
-    "angular-bootstrap-datetimepicker": "^1.0.1",
-    "angular-date-time-input": "^1.1.0",
+    "express": "^4.13.3",
     "body-parser": "^1.15.0",
-    "express": "^4.13.4",
-    "http": "0.0.0",
-    "moment": "^2.13.0",
     "mongoose": "^4.4.6",
-    "ng-file-upload": "^12.0.4",
-    "path": "^0.12.7"
+    "http": "0.0.0"
+  },
+  "devDependencies": {
+    "jshint": "^2.8.0"
   },
   "engines": {
     "node": ">=0.12.7"
