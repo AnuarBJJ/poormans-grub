@@ -1,4 +1,4 @@
-myApp.controller('menuController', function($scope, menuFactory, $cookies){
+myApp.controller('menuController', function($scope, menuFactory, $cookies, $location){
 	$scope.menu = [];
 	$scope.newMeal = {};
 	$scope.image = {};
@@ -8,8 +8,6 @@ myApp.controller('menuController', function($scope, menuFactory, $cookies){
 	$scope.notFound = true;
 
 	console.log("current user is " + $scope.user)
-
-	angular.element('#exCollapsingNavbar').addClass('collapse');
 
 	menuFactory.getMenu($scope.user, function(result){
 		console.log(result)
