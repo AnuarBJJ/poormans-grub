@@ -1,76 +1,129 @@
-<div style="margin-top: 100px"></div>
+<div ng-controller='menuController'>
 
-<div class="page-header">
-  <h1>Menu dashboard <small>Build your food list</small></h1>
-  <div class="btn-group btn-group-justified" role="group" aria-label="...">
+  <div style="margin-top: 100px"></div>
 
-    <div class="btn-group" role="group">
-      <button type="button" class="btn btn-default">My menu</button>
-    </div>
-    <div class="btn-group" role="group">
-      <button type="button" class="btn btn-default">Add more food to menu</button>
-    </div>
-    <div class="btn-group" role="group">
-      <button type="button" class="btn btn-default">Build offer</button>
+  <div class="page-header">
+    <h1>Dashboard <small>Rule your kitchen</small></h1>
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default" ng-click="selection = 'menu'">My menu</button>
+      </div>
+      <div class="btn-group" role="group">
+        <a type="button" class="btn btn-default" ng-click="selection = 'offer'">Build offer</a>
+        <!-- ng-href='#/timetable' -->
+      </div>
     </div>
   </div>
-</div>
-
-<div class="container" ng-controller='menuController'>
-
-  <div ng-if="notFound" ng-include="'/partials/cook.html'"></div>
 
   <!-- form for entering new dish as modal-->
-    <div ng-if='loggedOut'  class="modal fade" id="myModal" role="dialog">
-      <div class="col-sm-4">
-        <div class="thumbnail">
-        <form>
-          <div class="image-upload">
-            <img id='profile' src="img/imageholder.jpeg" style='width: 100%'>
-            <input name="file" type="file" file />
+  <div class="animate-switch-container" ng-switch on="selection">
+
+    <div class="animate-switch" ng-switch-when="menu">
+        <!-- all dishes by a particular cook -->
+        <div class='row'>
+          <div class='col-md-9'>
+            <div ng-repeat="meal in menu">
+              <div class="col-md-3">
+              <div class="thumbnail card">
+                  <div class="card-block">
+                    <h4 class="card-title">{{meal.name}} </h4>
+                    <!-- <h6 class="card-subtitle text-muted">Cook: {{ cook.name}}</h6> -->
+                    <!-- <h6 class="card-subtitle text-muted">Servings available: {{ cook.shift.menu[cook.meal._id]}}</h6> -->
+                  </div>
+                  <img src="{{meal.image}}" alt="Card image" style='height: 200px; width: auto'>
+                  <div class="card-block" ng-controller="RatingController as rating">
+                      <div class='col-md-12' star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
+                      </div>
+                  </div>
+                </br>
+                  <div class="card-block">
+                    <p class="card-text">{{meal.description}}</p>
+                    <!-- <a href="#" class="card-link">Want this</a> -->
+                    <!-- <a href="#" class="card-link">Another link</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="col-md-5" >
-            <h3><span class="label label-info">Meal name</span></h3>
-            <h3><span class="label label-info">Descirption</span></h3>
-            <h3><span class="label label-info">Price</span></h3>
+          <div class="col-md-3">
+            <div>
+              <div class="thumbnail">
+              <form ng-controller='menuController'>
+                <div class="image-upload">
+                  <img id='profile' src="img/imageholder.jpeg" style='width: 100%'>
+                  <input name="file" type="file" file />
+                </div>
+
+                <div class="col-md-5" >
+                  <h3><span class="label label-info">Meal name</span></h3>
+                  <h3><span class="label label-info">Descirption</span></h3>
+                  <h3><span class="label label-info">Price</span></h3>
+                </div>
+
+                <div class="col-md-7">
+                  <br>
+                  <input type="text" class="form-control" ng-model="meal">
+                  <input type="text" class="form-control" ng-model="description">
+                  <input type="text" class="form-control" ng-model="price">
+                  <input type='submit' value='submit' ng-click="addMeal()">
+                </div>
+              </form>
+              </div>
+            </div>
           </div>
 
-          <div class="col-md-7">
-            <br>
-            <input type="text" class="form-control" ng-model="meal">
-            <input type="text" class="form-control" ng-model="description">
-            <input type="text" class="form-control" ng-model="price">
-            <input type='submit' value='submit' ng-click="addMeal()">
-          </div>
-        </form>
         </div>
-      </div>
+
     </div>
 
+    <div class="animate-switch" ng-switch-when="offer">
 
-  <!-- all dishes by a particular cook -->
-  <div ng-repeat="meal in menu">
-    <div class="col-md-3">
-    <div class="thumbnail card">
-        <div class="card-block">
-          <h4 class="card-title">{{meal.name}} </h4>
-          <!-- <h6 class="card-subtitle text-muted">Cook: {{ cook.name}}</h6> -->
-          <!-- <h6 class="card-subtitle text-muted">Servings available: {{ cook.shift.menu[cook.meal._id]}}</h6> -->
-        </div>
-        <img src="{{meal.image}}" alt="Card image" style='height: 200px; width: auto'>
-        <div class="card-block" ng-controller="RatingController as rating">
-            <div class='col-md-12' star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
+      <div ng-controller="DateController as dateCtrl">
+
+        <form name="myForm" >
+          <input type="date" id="exampleInput" name="input" ng-model="date"
+               placeholder="yyyy-MM-dd" min="2013-01-01" max="2018-12-31" required />
+          <label for="exampleInput">Start</label>
+          <input type="time" id="exampleInput1" ng-model="value.beginning"
+              placeholder="THH:mm:ss" />
+          <label for="exampleInput2">End</label>
+          <input type="time" id="exampleInput" ng-model="value.end" 
+              placeholder="THH:mm"  />
+        <!--   <div role="alert">
+            <span class="error" ng-show="myForm.input.$error.required">
+                Required!</span>
+            <span class="error" ng-show="myForm.input.$error.datetimelocal">
+                Not a valid date!</span>
+          </div> -->
+          <input ng-click="buildTomorrowMenu()" type="submit" value="Submit">
+        </form>
+
+          <div ng-controller='menuController' >
+            <div ng-repeat="meal in menu">
+              <div class='col-md-3'>
+              <div class="thumbnail card">
+                <div class="card-block">
+                  <h4 class="card-title">{{meal.name}} </h4>
+                </div>
+                <img src="{{meal.image}}" alt="Card image" style='height: 200px; width: auto'>
+                <div class="card-block" ng-controller="RatingController as rating">
+                    <div class='col-md-12' star-rating ng-model="rating.rating1" max="5" on-rating-select="rating.rateFunction(rating)">
+                    </div>
+                </div>
+              </br>
+                <div class="card-block">
+                  <p class="card-text">{{meal.description}}</p>
+                  <label>Quantity</label>
+                  <input id='{{ meal._id }}'>
+                  <a type="button" class="btn btn-primary" ng-click='addToTomorrow(meal._id)' class="card-link">Cook this</a>
+                </div>
+              </div>
             </div>
+            </div>
+          </div>
         </div>
-      </br>
-        <div class="card-block">
-          <p class="card-text">{{meal.description}}</p>
-          <!-- <a href="#" class="card-link">Want this</a> -->
-          <!-- <a href="#" class="card-link">Another link</a> -->
-        </div>
-      </div>
     </div>
   </div>
 </div>
-<a ng-href='#/timetable'>What time eaters can pick up food?</a>

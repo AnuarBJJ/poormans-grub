@@ -28,8 +28,8 @@ myApp.directive('file', function() {
 
         var creds = {
           bucket: 'meal-upload',
-          access_key: 'sweetHome',
-          secret_key: 'California'
+          access_key: 'sweet',
+          secret_key: 'money'
         }
          
         var upload = function() {
