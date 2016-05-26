@@ -145,12 +145,16 @@ myApp.directive('mealsAroundMap', ['$timeout', '$http', function($timeout, $http
 			};
 
 			$scope.getMeals = function(info){
-				$http.post('/list', info).success(function(data){
-					if(data[0]){
-						$scope.cooks = arrangeData(data);
-					}
-				})
-			}
+				$http.post('/list', info).then(function successCallback(response){
+							console.log(response)
+								if(response.data){
+									$scope.cooks = arrangeData(response.data);
+								}
+					  }, function errorCallback(response) {
+					    // called asynchronously if an error occurs
+						console.log(response)
+					  }
+					)};
 
 			$scope.checkOut = function(){
 				

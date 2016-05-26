@@ -39,13 +39,14 @@ module.exports = function(app){
 		cooks.registerCook(req, res);
 	}),
 
-	// app.post('/cooksAround', function(req, res){
-	// 	cooks.cooksAround(req, res);
+	// app.post('/test', function(req, res){
+	// 	res.send('message');
+		// cooks.cooksAround(req, res);
 	// }),
 
 	app.post('/list', function(req, res){
-		// res.json({'name': 'Anuar'})
-		cooks.cooksAround(req, res);
+		res.send({'name': 'Anuar'})
+		// cooks.cooksAround(req, res);
 	}),
 
 	app.post('/newMeal', function(req, res){
