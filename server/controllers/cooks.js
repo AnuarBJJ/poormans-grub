@@ -45,13 +45,16 @@ module.exports = (function(){
 								})
 				.populate('meals')
 				.exec(function(err, array){
-					console.log(array)
+					// console.log(array)
 					array.forEach(function(ckoo){
 						if(ckoo.shifts.length>0){
 							menu.push(ckoo)
 						}
 					})
-					console.log(menu)
+					if(menu[0]){
+						console.log(menu[0].shifts)
+					}
+					
 					res.json(menu)
 				})
 		   

@@ -3,8 +3,8 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 	//this function rearranges http response to a format convinient for displaying
 	var arrangeData = function(data){
 		var offerings = [];
-		console.log(data)
 		data.forEach(function(cook){
+			// console.log(cook)
 			cook.shifts.forEach(function(shift){
 				console.log(shift)
 				var menu = Object.keys(shift.menu)
@@ -83,7 +83,8 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 		            } else{
 
 			            var nearCook = JSON.parse(xhttp.responseText);
-
+			            console.log(nearCook)
+			            scope.cooks = arrangeData(nearCook);
 			            // console.log(nearCook)
 
 			            for(var i=0; i<nearCook.length; i ++){
@@ -91,8 +92,7 @@ myApp.directive('mealsAroundMap', ['$timeout', function($timeout){
 			              marker.setPosition(new google.maps.LatLng(parseFloat(nearCook[i].lat), parseFloat(nearCook[i].lng)));
 			              marker.setMap(map);
 			            }
-			            
-			            scope.cooks = arrangeData(nearCook);
+
 			   			console.log(scope.cooks)
 			            scope.$apply()
 			        }
