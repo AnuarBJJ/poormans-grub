@@ -1,25 +1,6 @@
 myApp.directive('mealsAroundMap', ['$timeout', '$http', function($timeout, $http){
 
-	//this function rearranges http response to a format convinient for displaying
-	var arrangeData = function(data){
-		var offerings = [];
-		data.forEach(function(cook){
-			// console.log(cook)
-			cook.shifts.forEach(function(shift){
-				console.log(shift)
-				var menu = Object.keys(shift.menu)
-				menu.forEach(function(item){
-					cook.meals.forEach(function(meal){
-						if(item == meal._id){
-							console.log(meal.name)
-							offerings.push({meal: meal, shift: shift, cook: cook})
-						}
-					})
-				})
-			})
-		})
-		return offerings;
-	}
+
 
 
 	var locate = function(){
@@ -74,36 +55,36 @@ myApp.directive('mealsAroundMap', ['$timeout', '$http', function($timeout, $http
 		        google.maps.event.addListener(map, 'bounds_changed', function(){
 		          var bounds = map.getBounds();
 
-		       	var xhttp = new XMLHttpRequest();
-		        xhttp.onreadystatechange = function() {
-		          if (xhttp.readyState == 4 && xhttp.status == 200) {
-		          	// console.log(xhttp.responseText)
-		            if(xhttp.responseText == 'no cooks found' || xhttp.responseText == 'shifts not found'){
-		            	console.log('no cooks work')
-		            } else{
+		       // 	var xhttp = new XMLHttpRequest();
+		       //  xhttp.onreadystatechange = function() {
+		       //    if (xhttp.readyState == 4 && xhttp.status == 200) {
+		       //    	// console.log(xhttp.responseText)
+		       //      if(xhttp.responseText == 'no cooks found' || xhttp.responseText == 'shifts not found'){
+		       //      	console.log('no cooks work')
+		       //      } else{
 
-			            var nearCook = JSON.parse(xhttp.responseText);
-			            console.log(nearCook)
-			            scope.cooks = arrangeData(nearCook);
-			            // console.log(nearCook)
+			      //       var nearCook = JSON.parse(xhttp.responseText);
+			      //       console.log(nearCook)
+			      //       scope.cooks = arrangeData(nearCook);
+			      //       // console.log(nearCook)
 
-			            for(var i=0; i<nearCook.length; i ++){
-			              var marker = new google.maps.Marker();
-			              marker.setPosition(new google.maps.LatLng(parseFloat(nearCook[i].lat), parseFloat(nearCook[i].lng)));
-			              marker.setMap(map);
-			            }
+			      //       for(var i=0; i<nearCook.length; i ++){
+			      //         var marker = new google.maps.Marker();
+			      //         marker.setPosition(new google.maps.LatLng(parseFloat(nearCook[i].lat), parseFloat(nearCook[i].lng)));
+			      //         marker.setMap(map);
+			      //       }
 
-			   			console.log(scope.cooks)
-			            scope.$apply()
-			        }
-		          }
-		        };
+			   			// console.log(scope.cooks)
+			      //       scope.$apply()
+			      //   }
+		       //    }
+		       //  };
 
 		        var data = JSON.stringify({bounds: bounds, date: document.getElementById('date').value, beg: document.getElementById('beg').value, end: document.getElementById('end').value});
-	            var nearCook = '';
-	            var something = scope.getMeals(data, nearCook)
+	            // var nearCook = '';
+	            var something = scope.getMeals(data)
 	            // var nearCook = JSON.parse();
-	            console.log(nearCook)
+	            // console.log(nearCook)
 		        });
 
 		      }
@@ -136,6 +117,26 @@ myApp.directive('mealsAroundMap', ['$timeout', '$http', function($timeout, $http
 		scope: false,
 		link: link,
 		controller: function($scope){
+				//this function rearranges http response to a format convinient for displaying
+			var arrangeData = function(data){
+				var offerings = [];
+				data.forEach(function(cook){
+					// console.log(cook)
+					cook.shifts.forEach(function(shift){
+						console.log(shift)
+						var menu = Object.keys(shift.menu)
+						menu.forEach(function(item){
+							cook.meals.forEach(function(meal){
+								if(item == meal._id){
+									offerings.push({meal: meal, shift: shift, cook: cook})
+								}
+							})
+						})
+					})
+				})
+				return offerings;
+			}
+
 			$scope.cart = [];
 
 			$scope.toCart = function(meal){
@@ -143,10 +144,11 @@ myApp.directive('mealsAroundMap', ['$timeout', '$http', function($timeout, $http
 				console.log($scope.cart);
 			};
 
-			$scope.getMeals = function(info, cooks){
+			$scope.getMeals = function(info){
 				$http.post('/list', info).success(function(data){
-					$scope.cooks = data;
-					console.log($scope.cooks)
+					if(data[0]){
+						$scope.cooks = arrangeData(data);
+					}
 				})
 			}
 

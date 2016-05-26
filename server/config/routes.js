@@ -44,6 +44,7 @@ module.exports = function(app){
 	// }),
 
 	app.post('/list', function(req, res){
+		// res.json({'name': 'Anuar'})
 		cooks.cooksAround(req, res);
 	}),
 
