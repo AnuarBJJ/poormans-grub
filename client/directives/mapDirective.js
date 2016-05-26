@@ -54,37 +54,8 @@ myApp.directive('mealsAroundMap', ['$timeout', '$http', function($timeout, $http
 
 		        google.maps.event.addListener(map, 'bounds_changed', function(){
 		          var bounds = map.getBounds();
-
-		       // 	var xhttp = new XMLHttpRequest();
-		       //  xhttp.onreadystatechange = function() {
-		       //    if (xhttp.readyState == 4 && xhttp.status == 200) {
-		       //    	// console.log(xhttp.responseText)
-		       //      if(xhttp.responseText == 'no cooks found' || xhttp.responseText == 'shifts not found'){
-		       //      	console.log('no cooks work')
-		       //      } else{
-
-			      //       var nearCook = JSON.parse(xhttp.responseText);
-			      //       console.log(nearCook)
-			      //       scope.cooks = arrangeData(nearCook);
-			      //       // console.log(nearCook)
-
-			      //       for(var i=0; i<nearCook.length; i ++){
-			      //         var marker = new google.maps.Marker();
-			      //         marker.setPosition(new google.maps.LatLng(parseFloat(nearCook[i].lat), parseFloat(nearCook[i].lng)));
-			      //         marker.setMap(map);
-			      //       }
-
-			   			// console.log(scope.cooks)
-			      //       scope.$apply()
-			      //   }
-		       //    }
-		       //  };
-
-		        var data = JSON.stringify({bounds: bounds, date: document.getElementById('date').value, beg: document.getElementById('beg').value, end: document.getElementById('end').value});
-	            // var nearCook = '';
-	            var something = scope.getMeals(data)
-	            // var nearCook = JSON.parse();
-	            // console.log(nearCook)
+			      var data = JSON.stringify({bounds: bounds, date: document.getElementById('date').value, beg: document.getElementById('beg').value, end: document.getElementById('end').value});
+		          scope.getMeals(data)
 		        });
 
 		      }
@@ -116,7 +87,7 @@ myApp.directive('mealsAroundMap', ['$timeout', '$http', function($timeout, $http
 		templateUrl: '/partials/mealAround.html',
 		scope: false,
 		link: link,
-		controller: function($scope){
+		controller: function($scope, $http){
 				//this function rearranges http response to a format convinient for displaying
 			var arrangeData = function(data){
 				var offerings = [];
@@ -145,6 +116,7 @@ myApp.directive('mealsAroundMap', ['$timeout', '$http', function($timeout, $http
 			};
 
 			$scope.getMeals = function(info){
+				console.log('sending request');
 				$http.post('/list', info).then(function successCallback(response){
 							console.log(response)
 								if(response.data){
