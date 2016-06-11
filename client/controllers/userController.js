@@ -1,4 +1,4 @@
-myApp.controller('userController', function($document, $scope, cooksFactory, $cookies, $window, $location, $route){
+myApp.controller('userController', function($document, $scope, cooksFactory, $cookies, $window, $location, $route, $timeout){
     $scope.user = $cookies.get('user');
     $scope.loggedOut = true;
     

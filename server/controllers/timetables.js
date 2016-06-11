@@ -24,20 +24,12 @@ module.exports = (function(){
 				
 				cook.shifts.push(timetable);
 
-				// var menu = Object.keys(req.body.menu)
-
-				// menu.forEach(function(item){
-				// 	Meal.findOne({_id: item}, function(err, meal){
-				// 		timetable.menu.push(meal)
-				// 	})
-				// })
-
 				timetable.save(function(err){
 					cook.save(function(err){
 						if(err){
 							console.log(err)
 						} else {
-							res.json("successfully saved a shift")
+							res.json(timetable)
 						}
 					})
 				})
@@ -63,12 +55,26 @@ module.exports = (function(){
 						if(err){
 							console.log(err)
 						} else{
+							console.log(typeof cookMenu)
+							console.log(cookMenu)
 							res.json(cookMenu);
 						}
 					})
 				}
 			})
+		},
+		findShifts: function(req, res){
+			Cook.find({name: req.body.cook})
+				.populate('shifts')
+				.exec(function(err, cook){
+					if(cook){
+						res.json(cook[0].shifts)
+					} else {
+						res.json('no shifts found')
+					}
+				})
 		}
+
 	}
 	
 })();

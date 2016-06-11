@@ -1,4 +1,4 @@
-<html ng-app='myApp'>
+f<html ng-app='myApp'>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Poorman's Grub</title>
@@ -150,14 +150,11 @@
                 <button type="button" ng-if='!ownAddress' class="btn btn-default" ng-click='geolocation()'>Check it on map</button>
                 <button type="button" class="btn btn-default" ng-click='registerCook()'>Register</button>
               </div>
-              
+              <div id='map2'></div>
             </form>
 
         </div>
         <!-- trying to upload an image to S3 -->
-
-
-        <div id='map'></div>
 
         <div class="modal-footer">
           <a ng-href='#/' type="button" class="btn btn-default" data-dismiss="modal" id='closeModal'>Close</a>
@@ -166,6 +163,44 @@
       
     </div>
   </div>
+
+  <!-- Button trigger modal -->
+  <button hidden id='coolStuffLauncher' data-toggle="modal" data-target="#coolStuff">
+    Launch demo modal
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="coolStuff" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Registering</h4>
+        </div>
+        <div class="modal-body" style='height: 80%'>
+          <div id="animation">
+              <div class="glass"></div>
+              <div class="orange"></div>
+              <div class="orange"></div>
+              <div class="orangeHalf"></div>
+              <div class="juicer">
+                  <div class="head"></div>
+                  <div class="lever"></div>
+                  <div class="press"></div>
+                  <div class="stand"></div>
+                  <div class="squeezer"></div>
+                  <div class="juice"></div>
+                  <div class="base"></div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 </body>
 

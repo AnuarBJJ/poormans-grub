@@ -1,11 +1,11 @@
 myApp.controller('registrationController', function($document, $scope, cooksFactory, $cookies, $window, $location, $route, $http, $timeout){
-	var map;
+	var map2;
 
 	var mapFunction = function(){
 		function initMap() {
 
 
-	        map = new google.maps.Map(document.getElementById('map'), {
+	        map2 = new google.maps.Map(document.getElementById('map2'), {
 	          center: {lat: -34.397, lng: 150.644},
 	          zoom: 13,
 	          disableDefaultUI: true,
@@ -13,7 +13,7 @@ myApp.controller('registrationController', function($document, $scope, cooksFact
 	        });
 
 
-	        var infoWindow = new google.maps.InfoWindow({map: map});
+	        var infoWindow = new google.maps.InfoWindow({map: map2});
 
 	        // Try HTML5 geolocation.
 	        if (navigator.geolocation) {
@@ -25,7 +25,7 @@ myApp.controller('registrationController', function($document, $scope, cooksFact
 		        // })
 
 
-	            google.maps.event.addListener(map, 'bounds_changed', function(){
+	            google.maps.event.addListener(map2, 'bounds_changed', function(){
 			       	var xhttp = new XMLHttpRequest();
 			        xhttp.onreadystatechange = function() {
 			          if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -43,14 +43,14 @@ myApp.controller('registrationController', function($document, $scope, cooksFact
 
 	            infoWindow.setPosition(pos);
 	            infoWindow.setContent('You are here.');
-	            map.setCenter(pos);
+	            map2.setCenter(pos);
 
 	          }, function() {
-	            handleLocationError(true, infoWindow, map.getCenter());
+	            handleLocationError(true, infoWindow, map2.getCenter());
 	          });
 	        } else {
 	          // Browser doesn't support Geolocation
-	          handleLocationError(false, infoWindow, map.getCenter());
+	          handleLocationError(false, infoWindow, map2.getCenter());
 	        }
 
 	      }
@@ -83,7 +83,7 @@ myApp.controller('registrationController', function($document, $scope, cooksFact
 
 		console.log(requestUrl);
 		$http.get(requestUrl).success(function(response){
-			map.setCenter(response.results[0].geometry.location)
+			map2.setCenter(response.results[0].geometry.location)
 		})
 	}
 
@@ -91,15 +91,20 @@ myApp.controller('registrationController', function($document, $scope, cooksFact
 		var newCook = {name: $scope.newCook.name, 
 						pic: 'https://s3-us-west-2.amazonaws.com/meal-upload/' + $scope.file.name,
 						address: document.getElementById('address').value,
-						lat: map.getCenter().lat(),
-						lng: map.getCenter().lng()
+						lat: map2.getCenter().lat(),
+						lng: map2.getCenter().lng()
 					}
 
 		$http.post('/registerCook', newCook).success(function(result){
 			$cookies.put('user', $scope.newCook.name)
 			console.log(result)
-			$window.location.reload();
+			document.getElementById('coolStuffLauncher').click()
+			setTimeout(function(){ $window.location.reload(); }, 5000);
+			
+
 		})
+
+
 	}
 })
 

@@ -28,7 +28,7 @@ module.exports = (function(){
 						if(err){
 							console.log(err)
 						} else {
-							res.json('succesfully added a meal')
+							res.json(meal)
 						}
 					})
 				})

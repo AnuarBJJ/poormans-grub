@@ -1,6 +1,7 @@
 myApp.factory('menuFactory', function($http){
 	var factory={};
-	var cookMenu =[];
+	var cookMenu = [];
+	var shifts = [];
 
 	factory.getMenu = function(cook, callback){
 		$http.get('/menu/'+ cook).success(function(response){
@@ -13,6 +14,13 @@ myApp.factory('menuFactory', function($http){
 		// console.log("the new meal is", meal.name)
 		$http.post('/newMeal', meal).success(function(response){
 			cookMenu.push(response);
+			callback(response);
+		})
+	}
+
+	factory.shifts = function(cook, callback){
+		$http.post('/shifts', {cook: cook}).success(function(response){
+			console.log(response)
 			callback(response);
 		})
 	}

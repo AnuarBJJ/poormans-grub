@@ -11,7 +11,9 @@
       </div>
       <div class="btn-group" role="group">
         <a type="button" class="btn btn-default" ng-click="selection = 'offer'">Build offer</a>
-        <!-- ng-href='#/timetable' -->
+      </div>
+        <div class="btn-group" role="group">
+        <a id='test' type="button" class="btn btn-default" ng-click="selection = 'times'">Shifts</a>
       </div>
     </div>
   </div>
@@ -28,8 +30,6 @@
               <div class="thumbnail card">
                   <div class="card-block">
                     <h4 class="card-title">{{meal.name}} </h4>
-                    <!-- <h6 class="card-subtitle text-muted">Cook: {{ cook.name}}</h6> -->
-                    <!-- <h6 class="card-subtitle text-muted">Servings available: {{ cook.shift.menu[cook.meal._id]}}</h6> -->
                   </div>
                   <img src="{{meal.image}}" alt="Card image" style='height: 200px; width: auto'>
                   <div class="card-block" ng-controller="RatingController as rating">
@@ -39,8 +39,6 @@
                 </br>
                   <div class="card-block">
                     <p class="card-text">{{meal.description}}</p>
-                    <!-- <a href="#" class="card-link">Want this</a> -->
-                    <!-- <a href="#" class="card-link">Another link</a> -->
                   </div>
                 </div>
               </div>
@@ -91,13 +89,7 @@
           <label for="exampleInput2">End</label>
           <input type="time" id="exampleInput" ng-model="value.end" 
               placeholder="THH:mm"  />
-        <!--   <div role="alert">
-            <span class="error" ng-show="myForm.input.$error.required">
-                Required!</span>
-            <span class="error" ng-show="myForm.input.$error.datetimelocal">
-                Not a valid date!</span>
-          </div> -->
-          <input ng-click="buildTomorrowMenu()" type="submit" value="Submit">
+          <input ng-click='buildTomorrowMenu()' type="submit" value="Submit">
         </form>
 
           <div ng-controller='menuController' >
@@ -117,12 +109,41 @@
                   <p class="card-text">{{meal.description}}</p>
                   <label>Quantity</label>
                   <input id='{{ meal._id }}'>
-                  <a type="button" class="btn btn-primary" ng-click='addToTomorrow(meal._id)' class="card-link">Cook this</a>
+                  <a type="button" id='button{{$index}}' class="btn btn-primary" ng-click="addToTomorrow(meal._id, $index)" class="card-link">Cook this</a>
                 </div>
               </div>
             </div>
             </div>
           </div>
+        </div>
+    </div>
+
+        <div class="animate-switch" ng-switch-when="times">
+        <!-- all dishes by a particular cook -->
+        <div class='row'>
+          <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Table of all shifts starting with the newest</div>
+
+            <!-- Table -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Food</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="shift in shifts">
+                    <td>{{shift.beg}}</td>
+                    <td>{{shift.cook}}</td>
+                    <td>{{shift.menu}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
     </div>
   </div>

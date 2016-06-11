@@ -40,7 +40,6 @@ module.exports = function(app){
 	}),
 
 	app.post('/list', function(req, res){
-		console.log('got request')
 		cooks.cooksAround(req, res);
 	}),
 
@@ -57,8 +56,11 @@ module.exports = function(app){
 	}),
 
 	app.post('/timetable', function(req, res){
-		console.log(req.body)
 		timetable.create(req, res);
+	}),
+
+	app.post('/shifts', function(req, res){
+		timetable.findShifts(req, res)
 	})
 
 }

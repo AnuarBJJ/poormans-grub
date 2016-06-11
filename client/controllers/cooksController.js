@@ -31,8 +31,6 @@ myApp.controller('LocalCooksController', function($document, $scope, cooksFactor
 		angular.element('#closeModal').click();
 		$cookies.put('user', $scope.newCook.name)
 		$location.path('/cook')
-
-		// $window.location.href = '#/partials/cookMenu.html';
 		alert('successfully signed up')
 	}
 })
